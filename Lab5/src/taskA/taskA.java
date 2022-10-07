@@ -24,20 +24,28 @@ class Rookie implements Runnable{
     private static final AtomicBoolean finished = new AtomicBoolean(false);
 
     private final int [] recruits;
-//    private final Let let;
-    private final CyclicBarrier barrier;
+    private final Let let;
+//    private final CyclicBarrier barrier;
     private final int partIndex;
     private final int leftIndex;
     private final int rightIndex;
 
-    public Rookie(int[] recruits, CyclicBarrier barrier, int partIndex, int leftIndex, int rightIndex) {
+    public Rookie(int[] recruits, Let let, int partIndex, int leftIndex, int rightIndex) {
         this.recruits = recruits;
-//        this.let = let;
-        this.barrier = barrier;
+        this.let = let;
         this.partIndex = partIndex;
         this.leftIndex = leftIndex;
         this.rightIndex = rightIndex;
     }
+
+    //    public Rookie(int[] recruits, Let let, int partIndex, int leftIndex, int rightIndex) {
+//        this.recruits = recruits;
+//        this.let = let;
+////        this.barrier = barrier;
+//        this.partIndex = partIndex;
+//        this.leftIndex = leftIndex;
+//        this.rightIndex = rightIndex;
+//    }
 
     @Override
     public void run() {
@@ -65,17 +73,17 @@ class Rookie implements Runnable{
             for (int j = leftIndex; j < rightIndex; j++) {
                 System.out.print(recruits[j] + " ");
             }
+//            try {
+//                barrier.await();
+//            }catch (InterruptedException | BrokenBarrierException e){
+//                e.printStackTrace();
+//            }
             try {
-                barrier.await();
-            }catch (InterruptedException | BrokenBarrierException e){
+                let.await();
+            }catch (InterruptedException e){
                 e.printStackTrace();
             }
             checkFinish();
-//            try {
-//                let.await();
-//            }catch (InterruptedException e){
-//                e.printStackTrace();
-//            }
 
         }
     }
@@ -114,11 +122,11 @@ public class taskA {
         for (int i = 0; i < SIZE; i++) {
             System.out.print(recruits[i] + " ");
         }
-//        Let let = new Let(2);
-        CyclicBarrier barrier = new CyclicBarrier(2);
+        Let let = new Let(2);
+//        CyclicBarrier barrier = new CyclicBarrier(2);
 
-        Thread thread = new Thread(new Rookie(recruits, barrier, 1, 0, 25));
-        Thread thread1 = new Thread(new Rookie(recruits, barrier, 2, 25, SIZE));
+        Thread thread = new Thread(new Rookie(recruits, let, 1, 0, 25));
+        Thread thread1 = new Thread(new Rookie(recruits, let, 2, 25, SIZE));
 
         thread.start();
         thread1.start();

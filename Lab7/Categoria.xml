@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE Department SYSTEM "categoria.dtd">
+<Department><Subdivision id="x003" name="Office"><Employees id="e05" name="Sasha" phone="954835935" subdivisionId="x003" surname="Boilok"/></Subdivision><Subdivision id="x002" name="market"><Employees id="e03" name="Alex" phone="09093" subdivisionId="x002" surname="Bond"/><Employees id="e04" name="Oleg" phone="09094" subdivisionId="x002" surname="Mobus"/></Subdivision></Department>
